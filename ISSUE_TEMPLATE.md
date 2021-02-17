@@ -26,8 +26,8 @@ https://github.com/miraclelinux/shim-review/blob/MLV8/master/shim-unsigned-x64.s
 Our products and customers needs secure boot.  
 
 ###### How do you manage and protect the keys used in your SHIM?
-Build environment is located our private network, pesign-client calls.  
-Private keys are not accetable from only admin.  
+Build environment is located our private network, build system(mock) calls pesign-client.  
+Private keys are accessible from only admin and build system.  
 
 ###### Do you use EV certificates as embedded certificates in the SHIM?
 No.  
