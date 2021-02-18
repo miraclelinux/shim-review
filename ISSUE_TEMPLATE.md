@@ -63,10 +63,11 @@ No.
 We use GRUB2 as the bootloader, based and rebuild RHEL's 8.3 grub2, which includes secureboot support.  
 
 ###### If your SHIM launches any other components, please provide further details on what is launched
-No, only GRUB2.  
+Also launches fwupd-1.4.2.  
 
 ###### How do the launched components prevent execution of unauthenticated code?
-ditto.  
+- shim verifies grub2.  
+- fwupd do update of firmware, no other running unauthenticated code.  
 
 ###### Does your SHIM load any loaders that support loading unsigned kernels (e.g. GRUB)?
 Yes.  
