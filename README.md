@@ -65,7 +65,9 @@ URL for a repo that contains the exact code which was built to get this binary:
 What patches are being applied and why:
 -------------------------------------------------------------------------------
 
-Following patches are include from upstream.  
+Following patches are same as RHEL 8.3 and CentOS 8.3.  
+Patches are taken from inside of SRPM.   
+https://git.centos.org/rpms/shim-unsigned-x64/blob/c8/f/SOURCES  
 - 0001-Make-some-things-dprint-instead-of-console_print.patch
 - 0002-Makefiles-ensure-m32-gets-propogated-to-our-gcc-para.patch
 - 0003-Let-MokManager-follow-a-MokTimeout-var-for-timeout-l.patch
