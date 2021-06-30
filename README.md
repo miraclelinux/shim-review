@@ -39,6 +39,8 @@ Who is the primary contact for security updates, etc.
 - Position: Senior Engineer
 - Email address: haruki.tsurumoto@miraclelinux.com
 - PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community:
+https://raw.githubusercontent.com/miraclelinux/shim-review/ml8-shim-15.4-20210629/haruki_tsurumoto_D65234EEE8B6B283.pub
+
 ```
 $ gpg --fingerprint D65234EEE8B6B283
 pub   rsa2048 2017-06-16 [SC]
@@ -67,7 +69,8 @@ the appropriate gnu-efi source.
 -------------------------------------------------------------------------------
 URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
-[your url here]
+SRPM of shim-unsigned-x64  
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/SRPMS/shim-unsigned-x64-15.4-4.el8.ML.1.src.rpm
 
 -------------------------------------------------------------------------------
 What patches are being applied and why:
@@ -75,7 +78,9 @@ What patches are being applied and why:
 For shim:  
 0001-Fix-a-broken-file-header-on-ia32.patch  
 Why:  
-We are inclding same patches as upstream for shim.
+We are inclding same patches as upstream for shim.  
+This patch had already merged for rhboot's main branch.  
+https://github.com/rhboot/shim/pull/357/commits/1bea91ba72165d97c3b453cf769cb4bc5c07207a
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, GRUB2: is CVE-2020-14372, CVE-2020-25632,
@@ -165,7 +170,8 @@ $ split -b 48m ML8-shimbuild.tar.gz "ML8-shimbuild.tar.gz."
 -------------------------------------------------------------------------------
 Which files in this repo are the logs for your build?   This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 -------------------------------------------------------------------------------
-[your text here]
+build.log is https://github.com/miraclelinux/shim-review/blob/ml8-shim-15.4-20210629/build.log  
+root.log is https://github.com/miraclelinux/shim-review/blob/ml8-shim-15.4-20210629/root.log  
 
 -------------------------------------------------------------------------------
 Add any additional information you think we may need to validate this shim
