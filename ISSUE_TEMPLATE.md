@@ -1,6 +1,6 @@
 Make sure you have provided the following information:
 
- - [ ] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
+ - [v] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
  - [ ] completed README.md file with the necessary information
  - [ ] shim.efi to be signed
  - [v] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
@@ -10,6 +10,7 @@ Make sure you have provided the following information:
  - [v] build logs
  - [v] a Dockerfile to reproduce the build of the provided shim EFI binaries
 
+Link to our code branch for review: miraclelinux/shim-review@ml8-shim-15.4-20210629
 
 ###### What organization or people are asking to have this signed:
 Cybertrust Japan Co., Ltd.  
