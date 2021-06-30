@@ -20,25 +20,32 @@ Here's the template:
 -------------------------------------------------------------------------------
 What organization or people are asking to have this signed:
 -------------------------------------------------------------------------------
-[your text here]
+Cybertrust Japan Co., Ltd.
 
 -------------------------------------------------------------------------------
 What product or service is this for:
 -------------------------------------------------------------------------------
-[your text here]
+MIRACLE LINUX 8
 
 -------------------------------------------------------------------------------
 What's the justification that this really does need to be signed for the whole world to be able to boot it:
 -------------------------------------------------------------------------------
-[your text here]
+We have received request from our customer that they wants to enable SecureBoot for OEM computer without indivisual signature from hardware vendor specially.
 
 -------------------------------------------------------------------------------
 Who is the primary contact for security updates, etc.
 -------------------------------------------------------------------------------
-- Name:
-- Position:
-- Email address:
+- Name: Haruki TSURUMOTO
+- Position: Senior Engineer
+- Email address: haruki.tsurumoto@miraclelinux.com
 - PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community:
+```
+$ gpg --fingerprint D65234EEE8B6B283
+pub   rsa2048 2017-06-16 [SC]
+      FEA2 980F F1B1 FA08 4A8D  FD4E D652 34EE E8B6 B283
+uid           [ultimate] Haruki TSURUMOTO <haruki.tsurumoto@miraclelinux.com>
+sub   rsa2048 2017-06-16 [E]
+```
 
 -------------------------------------------------------------------------------
 Who is the secondary contact for security updates, etc.
@@ -65,7 +72,10 @@ URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
 What patches are being applied and why:
 -------------------------------------------------------------------------------
-[your text here]
+For shim:  
+0001-Fix-a-broken-file-header-on-ia32.patch  
+Why:  
+We are inclding same patches as upstream for shim.
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, GRUB2: is CVE-2020-14372, CVE-2020-25632,
@@ -132,7 +142,25 @@ apply. Please describe your strategy.
 What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
 If the shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case and the differences would be.
 -------------------------------------------------------------------------------
-[your text here]
+You can check it in docker environment.
+This environment can replay our mock build environment. This environment is close to RHEL 8.3.
+
+Please check in the following way.
+```
+ $ git clone https://github.com/miraclelinux/shim-review.git
+ $ cd shim-review/
+ $ git checkout ml8-shim-15.4-20210629
+ $ cat tarball_piece/ML8-shimbuild.tar.gz* > ML8-shimbuild.tar.gz
+ $ docker build .
+```
+
+`$ podman build . ` is also OK.
+
+FYI: We have splitted tarball to pieces(< 50MB) for the reason of GitHub's large file limit.  
+https://docs.github.com/ja/github/managing-large-files/working-with-large-files/conditions-for-large-files  
+```
+$ split -b 48m ML8-shimbuild.tar.gz "ML8-shimbuild.tar.gz."
+```
 
 -------------------------------------------------------------------------------
 Which files in this repo are the logs for your build?   This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
@@ -142,4 +170,9 @@ Which files in this repo are the logs for your build?   This should include logs
 -------------------------------------------------------------------------------
 Add any additional information you think we may need to validate this shim
 -------------------------------------------------------------------------------
-[your text here]
+```
+$ sha256sum shimia32.efi shimx64.efi
+416f59378de5bc6f01ecbb992b4efe23b305711881f6bed9acc668656ee00128  shimia32.efi
+7cbecc62764694c1ca279805ebd611b356a481e521561d97a6311aadb839d154  shimx64.efi
+```
+

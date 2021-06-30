@@ -3,38 +3,40 @@ Make sure you have provided the following information:
  - [ ] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
  - [ ] completed README.md file with the necessary information
  - [ ] shim.efi to be signed
- - [ ] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
+ - [v] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
  - [ ] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
- - [ ] any extra patches to shim via your own git tree or as files
+ - [v] any extra patches to shim via your own git tree or as files
  - [ ] any extra patches to grub via your own git tree or as files
- - [ ] build logs
- - [ ] a Dockerfile to reproduce the build of the provided shim EFI binaries
+ - [v] build logs
+ - [v] a Dockerfile to reproduce the build of the provided shim EFI binaries
 
 
 ###### What organization or people are asking to have this signed:
-`[your text here]`
+Cybertrust Japan Co., Ltd.  
 
 ###### What product or service is this for:
-`[your text here]`
+MIRACLE LINUX 8  
 
 ###### Please create your shim binaries starting with the 15.4 shim release tar file:
 ###### https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
 ###### This matches https://github.com/rhboot/shim/releases/tag/15.4 and contains
 ###### the appropriate gnu-efi source.
 ###### Please confirm this as the origin your shim.
-`[your text here]`
+Started from upstream's 15.4 release.  
+
 
 ###### What's the justification that this really does need to be signed for the whole world to be able to boot it:
-`[your text here]`
+We have received request from our customer that they wants to enable SecureBoot for OEM computer without indivisual signature from hardware vendor specially.  
 
 ###### How do you manage and protect the keys used in your SHIM?
-`[your text here]`
+Our private key is stored in HSM(Yubikey), this will be only available while speicific package build.(e.g. shim, grub2, kernel, fwupd)  
 
 ###### Do you use EV certificates as embedded certificates in the SHIM?
-`[your text here]`
+Yes.  
 
 ###### If you use new vendor_db functionality, are any hashes allow-listed, and if yes: for what binaries ?
-`[your text here]`
+Answer is no.  
+We don't use vendor_db functionality at present.  
 
 ###### Is kernel upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 present in your kernel, if you boot chain includes a Linux kernel ?
 `[your text here]`
@@ -54,7 +56,7 @@ Make sure you have provided the following information:
 `[your text here]`
 
 ##### Were your old SHIM hashes provided to Microsoft ?
-`[your text here]`
+No, we haven't.  
 
 ##### Did you change your certificate strategy, so that affected by CVE-2020-14372, CVE-2020-25632, CVE-2020-25647, CVE-2020-27749,
 ##### CVE-2020-27779, CVE-2021-20225, CVE-2021-20233, CVE-2020-10713,
@@ -64,13 +66,13 @@ Make sure you have provided the following information:
 
 ##### What exact implementation of Secureboot in grub2 ( if this is your bootloader ) you have ?
 ##### * Upstream grub2 shim_lock verifier or * Downstream RHEL/Fedora/Debian/Canonical like implementation ?
-`[your text here]`
+RHEL-like implementation, we are downstream.  
 
 ###### What is the origin and full version number of your bootloader (GRUB or other)?
 `[your text here]`
 
 ###### If your SHIM launches any other components, please provide further details on what is launched
-`[your text here]`
+No, only linux kernel.
 
 ###### If your GRUB2 launches any other binaries that are not Linux kernel in SecureBoot mode,
 ###### please provide further details on what is launched and how it enforces Secureboot lockdown
@@ -82,7 +84,7 @@ Make sure you have provided the following information:
 ###### GRUB2 from being able to chainload those older GRUB2 binaries. If
 ###### you are changing to a new (CA) certificate, this does not
 ###### apply. Please describe your strategy.
-`[your text here]`
+Not re-using, we have re-newed certificate in this year March.  
 
 ###### How do the launched components prevent execution of unauthenticated code?
 `[your text here]`
@@ -94,7 +96,12 @@ Make sure you have provided the following information:
 `[your text here]`
 
 ###### What changes were made since your SHIM was last signed?
-`[your text here]`
+Our previous submission had closed semi-automatic for BootHole vulnerability.  
+Therefore, we have no last signed SHIM.  
 
 ###### What is the SHA256 hash of your final SHIM binary?
-`[your text here]`
+```
+$ sha256sum shimia32.efi shimx64.efi
+416f59378de5bc6f01ecbb992b4efe23b305711881f6bed9acc668656ee00128  shimia32.efi
+7cbecc62764694c1ca279805ebd611b356a481e521561d97a6311aadb839d154  shimx64.efi
+```
