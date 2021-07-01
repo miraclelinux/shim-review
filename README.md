@@ -52,10 +52,18 @@ sub   rsa2048 2017-06-16 [E]
 -------------------------------------------------------------------------------
 Who is the secondary contact for security updates, etc.
 -------------------------------------------------------------------------------
-- Name:
-- Position:
-- Email address:
-- PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community:
+- Name:Yasuhiro NAKAMURA
+- Position: Principal Engineer
+- Email address: yasuhiro.nakamura@miraclelinux.com
+- PGP key, signed by the other security contacts, and preferably also with signatures that are reasonably well known in the Linux community: https://raw.githubusercontent.com/miraclelinux/shim-review/ml8-shim-15.4-20210629/Yasuhiro_NAKAMURA_18BC698751BE355A.pub
+
+```
+$ gpg --fingerprint 18BC698751BE355A
+pub   rsa3072 2021-07-01 [SC]
+      7006 FB03 02DA 06A6 94A1  205E 18BC 6987 51BE 355A
+uid           [ultimate] Yasuhiro NAKAMURA <yasuhiro.nakamura@miraclelinux.com>
+sub   rsa3072 2021-07-01 [E]
+```
 
 -------------------------------------------------------------------------------
 Please create your shim binaries starting with the 15.4 shim release tar file:
