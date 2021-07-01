@@ -197,10 +197,11 @@ Not applied.
 What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
 If the shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case and the differences would be.
 -------------------------------------------------------------------------------
-You can check it in docker environment.
-This environment can replay our mock build environment. This environment is close to RHEL 8.3.
+You can check it in docker environment.  
+This environment can replay our mock build environment.  
+This environment is close to RHEL 8.3.  
 
-Please check in the following way.
+Please check in the following way.  
 ```
  $ git clone https://github.com/miraclelinux/shim-review.git
  $ cd shim-review/
