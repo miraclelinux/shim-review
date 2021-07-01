@@ -64,7 +64,8 @@ https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
 This matches https://github.com/rhboot/shim/releases/tag/15.4 and contains
 the appropriate gnu-efi source.
 -------------------------------------------------------------------------------
-[Please confirm]
+Source is starting from upstream 15.4 release, tarball matches with upstream release at level of sha256sum.
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/shim-15.4.tar.bz2
 
 -------------------------------------------------------------------------------
 URL for a repo that contains the exact code which was built to get this binary:
@@ -87,15 +88,16 @@ If bootloader, shim loading is, GRUB2: is CVE-2020-14372, CVE-2020-25632,
  CVE-2020-25647, CVE-2020-27749, CVE-2020-27779, CVE-2021-20225, CVE-2021-20233,
  CVE-2020-10713, CVE-2020-14308, CVE-2020-14309, CVE-2020-14310, CVE-2020-14311,
  CVE-2020-15705, and if you are shipping the shim_lock module CVE-2021-3418
--------------------------------------------------------------------------------
-[your text here]
+------------------------------------------------------------------------------
 
+Yes, fixed.  
 
 -------------------------------------------------------------------------------
 What exact implementation of Secureboot in GRUB2 ( if this is your bootloader ) you have ?
 * Upstream GRUB2 shim_lock verifier or * Downstream RHEL/Fedora/Debian/Canonical like implementation ?
 -------------------------------------------------------------------------------
-[your text here]
+Yes, it have.  
+Downstream RHEL-like implementation.  
 
 -------------------------------------------------------------------------------
 If bootloader, shim loading is, GRUB2, and previous shims were trusting affected
@@ -115,7 +117,8 @@ by CVE-2020-14372, CVE-2020-25632, CVE-2020-25647, CVE-2020-27749,
   ( July 2020 grub2 CVE list + March 2021 grub2 CVE list )
   grub2 builds ?
 -------------------------------------------------------------------------------
-[your text here]
+Not applied for both questions.  
+
 
 -------------------------------------------------------------------------------
 If your boot chain of trust includes linux kernel, is
@@ -124,7 +127,45 @@ upstream commit 1957a85b0032a81e6482ca4aab883643b8dae06e applied ?
 Is "ACPI: configfs: Disallow loading ACPI tables when locked down"
 upstream commit 75b0cea7bf307f362057cc778efe89af4c615354 applied ?
 -------------------------------------------------------------------------------
-[your text here]
+These commits are included for 5.4 and later version.  
+Our kernel is based on version 4.18.0.  
+Strictly speaking, these fixes are not applied for this reason.  
+But nearly fixes are included for our kernel from origin of RHEL.  
+
+[drivers/firmware/efi/efi.c]  
+```
+ 244 #if IS_ENABLED(CONFIG_ACPI)
+ 245 #define EFIVAR_SSDT_NAME_MAX    16
+ 246 static char efivar_ssdt[EFIVAR_SSDT_NAME_MAX] __initdata;
+ 247 static int __init efivar_ssdt_setup(char *str)
+ 248 {
+ 249         int ret = kernel_is_locked_down("Modifying ACPI tables");
+ 250 
+ 251         if (ret)
+ 252                 return ret;
+ 253 
+ 254         if (strlen(str) < sizeof(efivar_ssdt))
+ 255                 memcpy(efivar_ssdt, str, strlen(str));
+ 256         else
+ 257                 pr_warn("efivar_ssdt: name too long: %s\n", str);
+ 258         return 0;
+ 259 }
+```
+
+[drivers/acpi/acpi_configfs.c]  
+```
+ 30 static ssize_t acpi_table_aml_write(struct config_item *cfg,
+ 31                                     const void *data, size_t size)
+ 32 {
+ 33         const struct acpi_table_header *header = data;
+ 34         struct acpi_table *table;
+ 35         int ret = kernel_is_locked_down("Modifying ACPI tables");
+ 36 
+ 37         if (ret)
+ 38                 return ret;
+ 39 
+ 40         table = container_of(cfg, struct acpi_table, cfg);
+```
 
 -------------------------------------------------------------------------------
 If you use vendor_db functionality of providing multiple certificates and/or
@@ -132,7 +173,8 @@ hashes please briefly describe your certificate setup. If there are allow-listed
 please provide exact binaries for which hashes are created via file sharing service,
 available in public with anonymous access for verification
 -------------------------------------------------------------------------------
-[your text here]
+Not applied,  
+since we don't use vendor_db functionality at present.  
 
 -------------------------------------------------------------------------------
 If you are re-using a previously used (CA) certificate, you will need
@@ -141,7 +183,7 @@ in order to prevent GRUB2 from being able to chainload those older GRUB2
 binaries. If you are changing to a new (CA) certificate, this does not
 apply. Please describe your strategy.
 -------------------------------------------------------------------------------
-[your text here]
+Not applied.  
 
 -------------------------------------------------------------------------------
 What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as close as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
