@@ -91,8 +91,8 @@ RHEL-like implementation, we are downstream.
 
 ###### What is the origin and full version number of your bootloader (GRUB or other)?
 GRUB2's upstream version is `2.02`  
-https://git.savannah.gnu.org/gitweb/?p=grub.git;a=tag;h=refs/tags/grub-2.02
-Full version number will `2.02-99.0.1.el8.ML.1`.  
+https://git.savannah.gnu.org/gitweb/?p=grub.git;a=tag;h=refs/tags/grub-2.02  
+Full version number will `2.02-99.el8.ML.1`.  
 This is derived from RHEL with our certfications and SBAT CSV.  
 
 ###### If your SHIM launches any other components, please provide further details on what is launched
