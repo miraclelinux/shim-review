@@ -4,7 +4,7 @@ Make sure you have provided the following information:
  - [v] completed README.md file with the necessary information
  - [v] shim.efi to be signed
  - [v] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
- - [ ] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
+ - [v] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
  - [v] any extra patches to shim via your own git tree or as files
  - [v] any extra patches to grub via your own git tree or as files
  - [v] build logs
