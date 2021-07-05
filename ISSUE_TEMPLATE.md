@@ -1,14 +1,14 @@
 Make sure you have provided the following information:
 
- - [v] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
- - [v] completed README.md file with the necessary information
- - [v] shim.efi to be signed
- - [v] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
- - [v] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
- - [v] any extra patches to shim via your own git tree or as files
- - [v] any extra patches to grub via your own git tree or as files
- - [v] build logs
- - [v] a Dockerfile to reproduce the build of the provided shim EFI binaries
+ - [x] link to your code branch cloned from rhboot/shim-review in the form user/repo@tag
+ - [x] completed README.md file with the necessary information
+ - [x] shim.efi to be signed
+ - [x] public portion of your certificate(s) embedded in shim (the file passed to VENDOR_CERT_FILE)
+ - [x] binaries, for which hashes are added do vendor_db ( if you use vendor_db and have hashes allow-listed )
+ - [x] any extra patches to shim via your own git tree or as files
+ - [x] any extra patches to grub via your own git tree or as files
+ - [x] build logs
+ - [x] a Dockerfile to reproduce the build of the provided shim EFI binaries
 
 Link to our code branch for review: miraclelinux/shim-review@ml8-shim-15.4-20210629
 
