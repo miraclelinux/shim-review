@@ -111,8 +111,7 @@ Not applied.
 Not re-using, we have re-newed certificate in this year March.  
 
 ###### How do the launched components prevent execution of unauthenticated code?
-By SecureBoot ways.  
-Shim, Grub2, Kernel will prevent unauthenticated code in SecureBoot enabled environment.  
+Everything validates signatures using shim's protocol.  
 
 ###### Does your SHIM load any loaders that support loading unsigned kernels (e.g. GRUB)?
 No.  
