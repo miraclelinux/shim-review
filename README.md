@@ -72,14 +72,18 @@ https://github.com/rhboot/shim/releases/download/15.4/shim-15.4.tar.bz2
 This matches https://github.com/rhboot/shim/releases/tag/15.4 and contains
 the appropriate gnu-efi source.
 -------------------------------------------------------------------------------
-Source is starting from upstream 15.4 release, tarball matches with upstream release at level of sha256sum.
+Source is starting from upstream 15.4 release,  
+tarball matches with upstream release at level of sha256sum.  
 https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/shim-15.4.tar.bz2
 
 -------------------------------------------------------------------------------
 URL for a repo that contains the exact code which was built to get this binary:
 -------------------------------------------------------------------------------
-SRPM of shim-unsigned-x64  
-https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/SRPMS/shim-unsigned-x64-15.4-4.el8.ML.1.src.rpm
+SRPM of shim-unsigned-x64:  
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/SRPMS/shim-unsigned-x64-15.4-4.el8.ML.1.src.rpm  
+SRPM of grub2:  
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/SRPMS/grub2-2.02-99.el8.ML.1.src.rpm  
+
 
 -------------------------------------------------------------------------------
 What patches are being applied and why:
@@ -223,10 +227,16 @@ Which files in this repo are the logs for your build?   This should include logs
 -------------------------------------------------------------------------------
 build.log is https://github.com/miraclelinux/shim-review/blob/ml8-shim-15.4-20210629/build.log  
 root.log is https://github.com/miraclelinux/shim-review/blob/ml8-shim-15.4-20210629/root.log  
+snapshot of rootfs is putted in: https://github.com/miraclelinux/shim-review/tree/ml8-shim-15.4-20210629/tarball_piece
 
 -------------------------------------------------------------------------------
 Add any additional information you think we may need to validate this shim
 -------------------------------------------------------------------------------
+Download links of unsigned binary:  
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/shimia32.efi  
+https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/shimx64.efi  
+
+Checksums:  
 ```
 $ sha256sum shimia32.efi shimx64.efi
 416f59378de5bc6f01ecbb992b4efe23b305711881f6bed9acc668656ee00128  shimia32.efi
