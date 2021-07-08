@@ -238,8 +238,8 @@ https://github.com/miraclelinux/shim-review/raw/ml8-shim-15.4-20210629/shimx64.e
 
 Checksums:  
 ```
-$ sha256sum shimia32.efi shimx64.efi
-416f59378de5bc6f01ecbb992b4efe23b305711881f6bed9acc668656ee00128  shimia32.efi
-7cbecc62764694c1ca279805ebd611b356a481e521561d97a6311aadb839d154  shimx64.efi
+$ sha256sum shimia32.efi shimx64.efi 
+678c2e622dda72d348bf3e028434a11fb55df230d57d6fa74a4ad534b5191383  shimia32.efi
+a3f048ea3efda6a18c40c1b79d52c6477a451d0c590d022fe3cd385ae92a1f26  shimx64.efi
 ```
 

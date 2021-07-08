@@ -1,3 +1,4 @@
+%global mlrelease .ML.2
 %global pesign_vre 0.106-1
 %global openssl_vre 1.0.2j
 
@@ -20,7 +21,7 @@
 
 Name:		shim-unsigned-%{efiarch}
 Version:	15.4
-Release:	4%{?dist}.ML.1
+Release:	4%{?dist}%{?mlrelease}
 Summary:	First-stage UEFI bootloader
 ExclusiveArch:	x86_64
 License:	BSD
@@ -183,6 +184,9 @@ cd ..
 %files debugsource -f build-%{efiarch}/debugsource.list
 
 %changelog
+* Thu Jul 8 2021 Haruki TSURUMOTO <haruki.tsurumoto@miraclelinux.com> - 15.4-4.ML.2
+- Change shortname from 'ML' to 'miracle' in SBAT
+
 * Mon Jun 28 2021 Haruki TSURUMOTO <haruki.tsurumoto@miraclelinux.com> - 15.4-4.ML.1
 - Replace der file for MIRACLE LINUX release
 - Remove '-B' option from setarch because it occurs operation error in container build

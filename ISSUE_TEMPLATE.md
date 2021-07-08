@@ -63,14 +63,14 @@ Yes, these grub2 CVEs were fixed.
 We are planning below SBAT entries.  
 For shim:  
 ```
-shim.ML,1,Cybertrust Japan,shim,15.4-4,ml-packager@miraclelinux.com
+shim.miracle,1,Cybertrust Japan,shim,15.4-4,ml-packager@miraclelinux.com
 ```
 
 For grub2:  
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,1,Free Software Foundation,grub,2.02,https://www.gnu.org/software/grub/
-grub.ML8,1,Cybertrust Japan,grub2,2.02-99.el8.ML.1,mail:ml-packager@miraclelinux.com
+grub.miracle8,1,Cybertrust Japan,grub2,2.02-99.el8.ML.1,mail:ml-packager@miraclelinux.com
 ```
 
 
