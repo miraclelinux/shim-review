@@ -1,15 +1,16 @@
-FROM almalinux:9
+FROM almalinux:9.5
 RUN dnf --enablerepo crb install -y \
         binutils gcc gnu-efi gnu-efi-devel make redhat-rpm-config rpm-build yum-utils \
         wget dos2unix elfutils-libelf-devel git openssl openssl-devel pesign
 COPY rpmmacros /root/.rpmmacros
-RUN wget https://pjones.fedorapeople.org/rhel-9-x64-20231201/shim-unsigned-x64-15.8-2.el9.src.rpm
-RUN rpm -ivh shim-unsigned-x64-15.8-2.el9.src.rpm
+RUN mkdir -p /builddir/build/{SOURCES,SPECS}
+RUN wget -P /builddir/build/SOURCES https://github.com/rhboot/shim/releases/download/15.8/shim-15.8.tar.bz2
+RUN cd /builddir/build/SOURCES && echo "a79f0a9b89f3681ab384865b1a46ab3f79d88b11b4ca59aa040ab03fffae80a9  shim-15.8.tar.bz2" | sha256sum -c -
 COPY sbat.ml.csv /builddir/build/SOURCES/
 COPY vendordb.esl /builddir/build/SOURCES/
-RUN sed -i 's/linux32 -B/linux32/g' /builddir/build/SPECS/shim-unsigned-x64.spec
-RUN sed -i 's/sbat.redhat.csv/sbat.ml.csv/g' /builddir/build/SPECS/shim-unsigned-x64.spec
-RUN sed -i 's/^\(Release:.*\)$/\1.ML.1/g' /builddir/build/SPECS/shim-unsigned-x64.spec
+COPY shim-find-debuginfo.sh /builddir/build/SOURCES/
+COPY shim.patches /builddir/build/SOURCES/
+COPY shim-unsigned-x64.spec /builddir/build/SPECS
 RUN rpmbuild -bb /builddir/build/SPECS/shim-unsigned-x64.spec
 COPY shimx64.efi /
 RUN rpm2cpio /builddir/build/RPMS/x86_64/shim-unsigned-x64-15.8-2.el9.ML.1.x86_64.rpm | cpio -diu
