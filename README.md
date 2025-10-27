@@ -27,7 +27,9 @@ Here's the template:
 ### What organization or people are asking to have this signed?
 *******************************************************************************
 Organization name and website:  
-[your text here]
+
+Cybertrust Japan Co., Ltd.
+https://www.cybertrust.co.jp/
 
 *******************************************************************************
 ### What's the legal data that proves the organization's genuineness?
@@ -54,17 +56,17 @@ Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
 *******************************************************************************
 ### What product or service is this for?
 *******************************************************************************
-[your text here]
+MIRACLE LINUX 9
 
 *******************************************************************************
 ### What's the justification that this really does need to be signed for the whole world to be able to boot it?
 *******************************************************************************
-[your text here]
+We have received request from our customer that they wants to enable SecureBoot for OEM computer without indivisual signature from hardware vendor specially.
 
 *******************************************************************************
 ### Why are you unable to reuse shim from another distro that is already signed?
 *******************************************************************************
-[your text here]
+Because MIRACLE LINUX uses its own signature for verification after the shim in the secure boot process, we need a shim with our certificate embedded.
 
 *******************************************************************************
 ### Who is the primary contact for security updates, etc.?
@@ -73,10 +75,10 @@ The security contacts need to be verified before the shim can be accepted. For s
 An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
 You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
+- Name: Masayuki Moriyama
+- Position: Expert Engineer
+- Email address: masayuki.moriyama@miraclelinux.com
+- PGP key fingerprint: 7A73 3BB6 5F8C 0A03 669A  55DB F4D6 D9F6 6850 9F22
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -85,10 +87,10 @@ well known in the Linux community.)
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
+- Name: Haruki TSURUMOTO
+- Position: Senior Engineer
+- Email address: haruki.tsurumoto@miraclelinux.com
+- PGP key fingerprint: FEA2 980F F1B1 FA08 4A8D  FD4E D652 34EE E8B6 B283
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -126,7 +128,7 @@ authentic, please confirm this here with a simple *yes*.
 
 A short guide on verifying public keys and signatures should be available in the [docs](./docs/) directory.
 *******************************************************************************
-[your text here]
+Yes
 
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to result in your binary:
@@ -134,26 +136,27 @@ Hint: If you attach all the patches and modifications that are being used to you
 
 You can also point to your custom git servers, where the code is hosted.
 *******************************************************************************
-[your url here]
+
+https://github.com/miraclelinux/shim-review/tree/miraclelinux-9-x64-20260226
 
 *******************************************************************************
 ### What patches are being applied and why:
 Mention all the external patches and build process modifications, which are used during your building process, that make your shim binary be the exact one that you posted as part of this application.
 *******************************************************************************
-[your text here]
+None
 
 *******************************************************************************
 ### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
 
 See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-shim-community/ba-p/3976522 for more details on the signing of shim without NX bit.
 *******************************************************************************
-[your text here]
+It's not set.
 
 *******************************************************************************
 ### What exact implementation of Secure Boot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 Skip this, if you're not using GRUB2.
 *******************************************************************************
-[your text here]
+This is a "RHEL-like" implementation.
 
 *******************************************************************************
 ### Do you have fixes for all the following GRUB2 CVEs applied?
@@ -221,21 +224,24 @@ Skip this, if you're not using GRUB2.
   * CVE-2025-1118
   * CVE-2025-1125
 *******************************************************************************
-[your text here]
+Yes
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 5?
 Skip this, if you're not using GRUB2, otherwise do you have an entry in your GRUB2 binary similar to:  
 `grub,5,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`?
 *******************************************************************************
-[your text here]
+Yes
+
+Our GRUB2 binary have the following entry:  
+`grub,5,Free Software Foundation,grub,2.06,https://www.gnu.org/software/grub/`
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
 ### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 If you had no previous signed shim, say so here. Otherwise a simple _yes_ will do.
 *******************************************************************************
-[your text here]
+Yes
 
 *******************************************************************************
 ### If your boot chain of trust includes a Linux kernel:
@@ -245,30 +251,82 @@ If you had no previous signed shim, say so here. Otherwise a simple _yes_ will d
 Hint: upstream kernels should have all these applied, but if you ship your own heavily-modified older kernel version, that is being maintained separately from upstream, this may not be the case.  
 If you are shipping an older kernel, double-check your sources; maybe you do not have all the patches, but ship a configuration, that does not expose the issue(s).
 *******************************************************************************
-[your text here]
+The above three patches have been applied to the MIRACLE LINUX 9 kernel.
 
 *******************************************************************************
 ### How does your signed kernel enforce lockdown when your system runs with Secure Boot enabled?
 Hint: If it does not, we are not likely to sign your shim.
 *******************************************************************************
-[your text here]
+The kernel's arch/x86/kernel/setup.c locks down the kernel with LOCKDOWN_INTEGRITY_MAX during Secure Boot as follows:
+
+arch/x86/kernel/setup.c:setup_arch():
+```
+#ifdef CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT
+        if (efi_enabled(EFI_SECURE_BOOT))
+                security_lock_kernel_down("EFI Secure Boot mode", LOCKDOWN_INTEGRITY_MAX);
+#endif
+```
+
+The security_lock_kernel_down() function looks like this:
+security/security.c:
+```
+int security_lock_kernel_down(const char *where, enum lockdown_reason level)
+{
+        return call_int_hook(lock_kernel_down, where, level);
+}
+EXPORT_SYMBOL(security_lock_kernel_down);
+```
+
+The kernel was built with CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT=y.
 
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
 *******************************************************************************
-[your text here]
+We add one debrand patch(replacing trademarks) for compliant RED HAT TRADEMARK GUIDELINES.
+It changes a few messages of `pr_notice()` and `pr_crit()` and source-code comments, do nothing else.
 
 *******************************************************************************
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-[your text here]
+Yes
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
 ### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
 *******************************************************************************
-[your text here]
+The following two certificates are included in vendordb.esl:
+* ml9_ca_secureboot_v1_2022.der
+* ml9_ca_secureboot_v2_2024.der
+
+ml9_ca_secureboot_v1_2022.der:
+```
+        Serial Number:
+            3c:88:56:6a:ab:8b:96:01:99:6a:dc:f2:8c:64:41:2c:79:05:39:e4
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=MIRACLE LINUX 9 Secure Boot (CA key 1), emailAddress=ml-packager@miraclelinux.com
+        Validity
+            Not Before: Apr 22 09:14:09 2022 GMT
+            Not After : Apr 16 09:14:09 2027 GMT
+        Subject: CN=MIRACLE LINUX 9 Secure Boot (CA key 1), emailAddress=ml-packager@miraclelinux.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+```
+ml9_ca_secureboot_v2_2024.der:
+```
+        Serial Number:
+            35:39:bd:ce:c0:88:a6:cd:e7:59:d7:a7:f9:d4:48:a6:9f:8e:ab:e9
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=MIRACLE LINUX 9 Secure Boot (CA key 2), emailAddress=ml-packager@miraclelinux.com
+        Validity
+            Not Before: May  8 10:04:13 2024 GMT
+            Not After : May  2 10:04:13 2029 GMT
+        Subject: CN=MIRACLE LINUX 9 Secure Boot (CA key 2), emailAddress=ml-packager@miraclelinux.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+```
 
 *******************************************************************************
 ### If you are re-using the CA certificate from your last shim binary, you will need to add the hashes of the previous GRUB2 binaries exposed to the CVEs mentioned earlier to vendor_dbx in shim. Please describe your strategy.
@@ -276,7 +334,7 @@ This ensures that your new shim+GRUB2 can no longer chainload those older GRUB2 
 
 If this is your first application or you're using a new CA certificate, please say so here.
 *******************************************************************************
-[your text here]
+We use SBAT mechanisms to disallow vulnerable GRUB2 versions from booting.
 
 *******************************************************************************
 ### Is the Dockerfile in your repository the recipe for reproducing the building of your shim binary?
@@ -286,13 +344,16 @@ Hint: Prefer using *frozen* packages for your toolchain, since an update to GCC,
 
 If your shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case, what the differences would be and what build environment (OS and toolchain) is being used to reproduce this build? In this case please write a detailed guide, how to setup this build environment from scratch.
 *******************************************************************************
-[your text here]
+Use docker or podman.
+```
+docker build --no-cache .
+```
 
 *******************************************************************************
 ### Which files in this repo are the logs for your build?
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
-[your text here]
+root.log and build.log in this repo.
 
 *******************************************************************************
 ### What changes were made in the distro's secure boot chain since your SHIM was last signed?
@@ -300,24 +361,29 @@ For example, signing new kernel's variants, UKI, systemd-boot, new certs, new CA
 
 Skip this, if this is your first application for having shim signed.
 *******************************************************************************
-[your text here]
+Update shim from 15.6 to 16.1 and include new certificate.
 
 *******************************************************************************
 ### What is the SHA256 hash of your final shim binary?
 *******************************************************************************
-[your text here]
+```
+$ sha256sum shimx64.efi
+761a8060037df9ce96febe90c999f9c29a92dbe0f829cf26b4620fc3e289a31d  shimx64.efi
+$ pesign -h -P -i shimx64.efi
+43f0666914eef0360cdf2ea9995c61e9eb27a02584613fdf9398968c03e4641d shimx64.efi
+```
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your shim?
 Describe the security strategy that is used for key protection. This can range from using hardware tokens like HSMs or Smartcards, air-gapped vaults, physical safes to other good practices.
 *******************************************************************************
-[your text here]
+Our private key is stored in HSM(Yubikey), this will be only available while speicific package build.(e.g. shim, grub2, kernel, fwupd)
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the shim?
 A _yes_ or _no_ will do. There's no penalty for the latter.
 *******************************************************************************
-[your text here]
+No.
 
 *******************************************************************************
 ### Are you embedding a CA certificate in your shim?
@@ -326,7 +392,7 @@ if _yes_: does that certificate include the X509v3 Basic Constraints
 to say that it is a CA? See the [docs](./docs/) for more guidance
 about this.
 *******************************************************************************
-[your text here]
+Yes to both.
 
 *******************************************************************************
 ### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( GRUB2, fwupd, fwupdate, systemd-boot, systemd-stub, shim + all child shim binaries )?
@@ -339,7 +405,34 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 
 Hint: run `objcopy --dump-section .sbat=/dev/stdout YOUR_EFI_BINARY` to get these entries. Paste them here. Preferably surround each listing with three backticks (\`\`\`), so they render well.
 *******************************************************************************
-[your text here]
+```
+shim:
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
+shim.miracle,2,Cybertrust Japan,shim,15.8,mailto:ml-packager@miraclelinux.com
+
+grub2:
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,3,Free Software Foundation,grub,2.06,https//www.gnu.org/software/grub/
+grub.rh,2,Red Hat,grub2,2.06-104.el9_6,mailto:secalert@redhat.com
+grub.miracle,1,Cybertrust Japan,grub2,2.06-104.el9_6.ML.1,mailto:ml-packager@miraclelinux.com
+
+fwupdate:
+sbat,1,UEFI shim,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+fwupd-efi,1,Firmware update daemon,fwupd-efi,1.4,https://github.com/fwupd/fwupd-efi
+fwupd-efi.miraclelinux,1,MIRACLE LINUX,fwupd,1.9.26,mailto:ml-packager@miraclelinux.com
+
+kernel-uki-virt:
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+linux,1,Red Hat,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
+linux,1,MIRACLE LINUX,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
+linux.rhel,1,Red Hat,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
+linux.miraclelinux,1,MIRACLE LINUX,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
+kernel-uki-virt.rhel,1,Red Hat,kernel-uki-virt,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
+kernel-uki-virt.miraclelinux,1,MIRACEL LINUX,kernel-uki-virt,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
+systemd,1,The systemd Developers,systemd,252,https://systemd.io/
+systemd.miraclelinux,1,MIRACLE LINUX,systemd,252-51.el9_6.2.ML.1,mailto:ml-packager@miraclelinux.com
+```
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
@@ -347,45 +440,45 @@ Skip this, if you're not using GRUB2.
 
 Hint: this is about those modules that are in the binary itself, not the `.mod` files in your filesystem.
 *******************************************************************************
-[your text here]
+all_video boot blscfg btrfs cat configfile cryptodisk echo ext2 fat font gcry_rijndael gcry_rsa gcry_serpent gcry_sha256 gcry_twofish gcry_whirlpool gfxmenu gfxterm gzio halt hfsplus http increment iso9660 jpeg loadenv loopback linux lvm luks mdraid09 mdraid1x minicmd net normal part_apple part_msdos part_gpt password_pbkdf2 png reboot regexp search search_fs_uuid search_fs_file search_label serial sleep syslinuxcfg test tftp video xfs efi_netfs efifwsetup efinet lsefi lsefimmap connectefi backtrace chain usb usbserial_common usbserial_pl2303 usbserial_ftdi usbserial_usbdebug keylayouts at_keyboard
 
 *******************************************************************************
 ### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
 *******************************************************************************
-[your text here]
+The only supported architecture for MIRACLE LINUX 9 is x86_64.
 
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
 *******************************************************************************
-[your text here]
+grub2-2.06-104.el9_6.ML.1.
 
 *******************************************************************************
 ### If your shim launches any other components apart from your bootloader, please provide further details on what is launched.
 Hint: The most common case here will be a firmware updater like fwupd.
 *******************************************************************************
-[your text here]
+fwupd and UKI
 
 *******************************************************************************
 ### If your GRUB2 or systemd-boot launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
 Skip this, if you're not using GRUB2 or systemd-boot.
 *******************************************************************************
-[your text here]
+grub2 verifies signatures on booted kernels via shim. fwupd does not include code to launch other binaries, it can only load UEFI Capsule updates.
 
 *******************************************************************************
 ### How do the launched components prevent execution of unauthenticated code?
 Summarize in one or two sentences, how your secure bootchain works on higher level.
 *******************************************************************************
-[your text here]
+Everything has secure boot validation and .sbat self checks.
 
 *******************************************************************************
 ### Does your shim load any loaders that support loading unsigned kernels (e.g. certain GRUB2 configurations)?
 *******************************************************************************
-[your text here]
+We using 5.14 kernel based on RHEL9 kernel that supports Secure Boot.
 
 *******************************************************************************
 ### What kernel are you using? Which patches and configuration does it include to enforce Secure Boot?
 *******************************************************************************
-[your text here]
+RHEL version of Linux kernel-5.14.0-570.49.1.el9_6.src.rpm.
 
 *******************************************************************************
 ### What contributions have you made to help us review the applications of other applicants?
@@ -400,4 +493,4 @@ For newcomers, the applications labeled as [*easy to review*](https://github.com
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim signing application.
 *******************************************************************************
-[your text here]
+None.
