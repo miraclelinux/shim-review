@@ -409,7 +409,7 @@ Hint: run `objcopy --dump-section .sbat=/dev/stdout YOUR_EFI_BINARY` to get thes
 shim:
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,4,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.miracle,2,Cybertrust Japan,shim,15.8,mailto:ml-packager@miraclelinux.com
+shim.miracle,3,Cybertrust Japan,shim,16.1,mailto:ml-packager@miraclelinux.com
 
 grub2:
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
