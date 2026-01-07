@@ -420,7 +420,7 @@ grub.miracle,1,Cybertrust Japan,grub2,2.06-114.el9_7.ML.1,mailto:ml-packager@mir
 fwupdate:
 sbat,1,UEFI shim,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 fwupd-efi,1,Firmware update daemon,fwupd-efi,1.4,https://github.com/fwupd/fwupd-efi
-fwupd-efi.miraclelinux,1,MIRACLE LINUX,fwupd,1.9.26,mailto:ml-packager@miraclelinux.com
+fwupd-efi.miraclelinux,1,MIRACLE LINUX,fwupd,1.9.31,mailto:ml-packager@miraclelinux.com
 
 kernel-uki-virt:
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
