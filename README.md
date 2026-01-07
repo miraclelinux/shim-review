@@ -424,14 +424,14 @@ fwupd-efi.miraclelinux,1,MIRACLE LINUX,fwupd,1.9.31,mailto:ml-packager@miracleli
 
 kernel-uki-virt:
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-linux,1,Red Hat,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
-linux,1,MIRACLE LINUX,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
-linux.rhel,1,Red Hat,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
-linux.miraclelinux,1,MIRACLE LINUX,linux,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
-kernel-uki-virt.rhel,1,Red Hat,kernel-uki-virt,5.14.0-570.49.1.el9_6.x86_64,mailto:secalert@redhat.com
-kernel-uki-virt.miraclelinux,1,MIRACEL LINUX,kernel-uki-virt,5.14.0-570.49.1.el9_6.x86_64,mailto:ml-packager@miraclelinux.com
+linux,1,Red Hat,linux,5.14.0-611.16.1.el9_7.x86_64,mailto:secalert@redhat.com
+linux,1,MIRACLE LINUX,linux,5.14.0-611.16.1.el9_7.x86_64,mailto:ml-packager@miraclelinux.com
+linux.rhel,1,Red Hat,linux,5.14.0-611.16.1.el9_7.x86_64,mailto:secalert@redhat.com
+linux.miraclelinux,1,MIRACLE LINUX,linux,5.14.0-611.16.1.el9_7.x86_64,mailto:ml-packager@miraclelinux.com
+kernel-uki-virt.rhel,1,Red Hat,kernel-uki-virt,5.14.0-611.16.1.el9_7.x86_64,mailto:secalert@redhat.com
+kernel-uki-virt.miraclelinux,1,MIRACEL LINUX,kernel-uki-virt,5.14.0-611.16.1.el9_7.x86_64,mailto:ml-packager@miraclelinux.com
 systemd,1,The systemd Developers,systemd,252,https://systemd.io/
-systemd.miraclelinux,1,MIRACLE LINUX,systemd,252-51.el9_6.2.ML.1,mailto:ml-packager@miraclelinux.com
+systemd.miraclelinux,1,MIRACLE LINUX,systemd,252-55.el9_7.7.ML.1,mailto:ml-packager@miraclelinux.com
 ```
 
 *******************************************************************************
