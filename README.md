@@ -478,7 +478,7 @@ We using 5.14 kernel based on RHEL9 kernel that supports Secure Boot.
 *******************************************************************************
 ### What kernel are you using? Which patches and configuration does it include to enforce Secure Boot?
 *******************************************************************************
-RHEL version of Linux kernel-5.14.0-570.49.1.el9_6.src.rpm.
+RHEL version of Linux kernel-5.14.0-611.16.1.el9_7.src.rpm
 
 *******************************************************************************
 ### What contributions have you made to help us review the applications of other applicants?
