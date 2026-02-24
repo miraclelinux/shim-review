@@ -51,7 +51,10 @@ Issuer: O=MyIssuer, Ltd., CN=MyIssuer EV Code Signing CA
 Subject: C=XX, O=MyCompany, Inc., CN=MyCompany, Inc.
 ```
 
-[your text here]
+```
+Issuer: O=Sectigo Limited, CN=Sectigo Public Code Signing CA EV R36
+Subject: C=JP, O=CYBERTRUST JAPAN CO., LTD., CN=CYBERTRUST JAPAN CO., LTD.
+```
 
 *******************************************************************************
 ### What product or service is this for?
